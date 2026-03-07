@@ -1,0 +1,14 @@
+Este proyecto consiste en una aplicación web sencilla desarrollada con Python 
+utilizando la librería Flask y una interfaz creada en HTML.
+Fue realizado con el objetivo de permitir al usuario 
+ingresar desde una página web la cantidad de vacas,
+la cantidad de leche producida y el precio por litro de leche. 
+Los datos se introducen mediante un formulario HTML y son enviados al servidor
+utilizando el método POST.
+Flask recibe esta información en el archivo principal app.py mediante el objeto request,
+procesa los datos y calcula el promedio de producción de leche por vaca
+dividiendo la cantidad total de leche entre el número de vacas registradas.
+Posteriormente los resultados se envían nuevamente a la página web utilizando render_template
+para mostrarlos al usuario.
+El proyecto se ejecuta iniciando el servidor local con el comando python app.py
+y accediendo desde el navegador a la dirección que proporciona la terminal.

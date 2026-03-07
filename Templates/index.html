@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Producción de Leche</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+
+<div class="contenedor">
+
+<h1>Calculadora Granjera</h1>
+
+<form method="POST">
+
+<label>Cantidad de vacas</label>
+<input type="number" name="vacas" required>
+
+<label>Litros de leche producidos</label>
+<input type="number" step="0.01" name="leche" required>
+
+<label>Precio por litro</label>
+<input type="number" name="precio" required>
+
+<button type="submit">Calcular</button>
+
+</form>
+
+<div class="resultados">
+
+<h3>Resultados</h3>
+
+<p>Vacas: {{ vacas }}</p>
+<p>Leche producida: {{ leche }} litros</p>
+<p>Precio por litro: ${{ precio }}</p>
+<p>Promedio por vaca: {{ promedio }} litros</p>
+
+</div>
+
+</div>
+
+</body>
+</html>
