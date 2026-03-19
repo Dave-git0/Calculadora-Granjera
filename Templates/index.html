@@ -1,45 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-
-<title>Producción de Leche</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
+    <meta charset="UTF-8">
+    <title>Calculadora Granjera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="contenedor">
+        <h1> Calculadora Granjera </h1>
 
-<div class="contenedor">
+        <form method="POST">
+            <label for="animal">Elige un animal:</label>
+            <select name="animal" id="animal" onchange="this.form.submit()">
+                <option value="vacas" {% if animal == 'vacas' %}selected{% endif %}>🐄 Vacas (leche)</option>
+                <option value="gallinas" {% if animal == 'gallinas' %}selected{% endif %}>🐔 Gallinas (huevos)</option>
+                <option value="ovejas" {% if animal == 'ovejas' %}selected{% endif %}>🐑 Ovejas (lana)</option>
+            </select>
 
-<h1>Calculadora Granjera</h1>
+            {% set labels = {
+                'vacas': {'nombre': 'vacas', 'producto': 'litros de leche', 'precio': 'precio por litro ($)', 'unidad': 'L'},
+                'gallinas': {'nombre': 'gallinas', 'producto': 'huevos', 'precio': 'precio por huevo ($)', 'unidad': 'unidades'},
+                'ovejas': {'nombre': 'ovejas', 'producto': 'kg de lana', 'precio': 'precio por kg ($)', 'unidad': 'kg'}
+            } %}
 
-<form method="POST">
+            <label>Cantidad de {{ labels[animal]['nombre'] }}</label>
+            <input type="number" name="cantidad" min="0" value="{{ cantidad }}" required>
 
-<label>Cantidad de vacas</label>
-<input type="number" name="vacas" required>
+            <label>{{ labels[animal]['producto'].capitalize() }} producidos</label>
+            <input type="number" step="0.01" name="producto" min="0" value="{{ producto_total }}" required>
 
-<label>Litros de leche producidos</label>
-<input type="number" step="0.01" name="leche" required>
+            <label>{{ labels[animal]['precio'] }}</label>
+            <input type="number" step="0.01" name="precio" min="0" value="{{ precio_unitario }}" required>
 
-<label>Precio por litro</label>
-<input type="number" name="precio" required>
+            <button type="submit">Calcular</button>
+        </form>
 
-<button type="submit">Calcular</button>
-
-</form>
-
-<div class="resultados">
-
-<h3>Resultados</h3>
-
-<p>Vacas: {{ vacas }}</p>
-<p>Leche producida: {{ leche }} litros</p>
-<p>Precio por litro: ${{ precio }}</p>
-<p>Promedio por vaca: {{ promedio }} litros</p>
-
-</div>
-
-</div>
-
+        {% if request.method == 'POST' %}
+        <div class="resultados">
+            <h2>Resultados</h2>
+            <p><strong>{{ labels[animal]['nombre'].capitalize() }}:</strong> {{ cantidad }}</p>
+            <p><strong>{{ labels[animal]['producto'].capitalize() }} producidos:</strong> {{ producto_total }} {{ labels[animal]['unidad'] }}</p>
+            <p><strong>Precio por {{ labels[animal]['unidad'] }}:</strong> ${{ "%.2f"|format(precio_unitario) }}</p>
+            <p><strong>Promedio por {{ labels[animal]['nombre'] }}:</strong> {{ "%.2f"|format(promedio) }} {{ labels[animal]['unidad'] }}</p>
+            <p><strong>Ingreso total:</strong> ${{ "%.2f"|format(ingreso_total) }}</p>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>

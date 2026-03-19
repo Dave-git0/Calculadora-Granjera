@@ -1,57 +1,99 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #7bc96f, #3fa34d);
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background: url('pixel-granja.jpg') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
 }
 
-.contenedor{
-    background: white;
+/* Capa semitransparente sobre el fondo para mejorar legibilidad */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.contenedor {
+    background: rgba(255, 255, 255, 0.95);
     padding: 30px;
-    border-radius: 10px;
-    width: 350px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    border: 1px solid #fff;
 }
 
-h1{
+h1 {
     text-align: center;
-    color: #2f6b2f;
+    color: #2e5c2e;
+    margin-top: 0;
+    font-size: 1.8em;
 }
 
-label{
+label {
     font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    color: #2e5c2e;
 }
 
-input{
+select, input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
-    margin-bottom: 15px;
-    border-radius: 5px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
 }
 
-button{
+button {
     width: 100%;
-    padding: 10px;
-    background: #3fa34d;
-    border: none;
+    padding: 12px;
+    background-color: #3fa34d;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover{
-    background: #2f7a39;
-}
-
-.resultados{
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
     margin-top: 20px;
-    background: #f2f2f2;
-    padding: 10px;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2e7d32;
+}
+
+.resultados {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #e9f5e9;
+    border-radius: 10px;
+    border-left: 5px solid #3fa34d;
+}
+
+.resultados h2 {
+    margin-top: 0;
+    color: #1e4a1e;
+    font-size: 1.4em;
+}
+
+.resultados p {
+    margin: 8px 0;
+    font-size: 1.1em;
+    color: #1e3a1e;
+}
+
+.resultados strong {
+    color: #2e5c2e;
 }
