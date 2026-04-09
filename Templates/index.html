@@ -1,50 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
     <meta charset="UTF-8">
-    <title>Calculadora Granjera</title>
+    <title>Calculadora Ganadera</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: rgb(0, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 40px;
+            margin-top: -150px;
+        }
+
+        .btn {
+            display: block;
+            width: 250px;
+            margin: 15px auto;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-calculadora {
+            background-color: #2e5c2e;
+            color: white;
+        }
+
+        .btn-glosario {
+            background-color: #2e5c2e;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-    <div class="contenedor">
-        <h1> Calculadora Granjera </h1>
 
-        <form method="POST">
-            <label for="animal">Elige un animal:</label>
-            <select name="animal" id="animal" onchange="this.form.submit()">
-                <option value="vacas" {% if animal == 'vacas' %}selected{% endif %}>🐄 Vacas (leche)</option>
-                <option value="gallinas" {% if animal == 'gallinas' %}selected{% endif %}>🐔 Gallinas (huevos)</option>
-                <option value="ovejas" {% if animal == 'ovejas' %}selected{% endif %}>🐑 Ovejas (lana)</option>
-            </select>
+    <div class="container">
+        <h1>Calculadora Ganadera</h1>
 
-            {% set labels = {
-                'vacas': {'nombre': 'vacas', 'producto': 'litros de leche', 'precio': 'precio por litro ($)', 'unidad': 'L'},
-                'gallinas': {'nombre': 'gallinas', 'producto': 'huevos', 'precio': 'precio por huevo ($)', 'unidad': 'unidades'},
-                'ovejas': {'nombre': 'ovejas', 'producto': 'kg de lana', 'precio': 'precio por kg ($)', 'unidad': 'kg'}
-            } %}
+        <!-- Botón a la calculadora -->
+        <a href="{{ url_for('calculadora') }}">
+            <button class="btn btn-calculadora">
+                Ir a la Calculadora
+            </button>
+        </a>
 
-            <label>Cantidad de {{ labels[animal]['nombre'] }}</label>
-            <input type="number" name="cantidad" min="0" value="{{ cantidad }}" required>
-
-            <label>{{ labels[animal]['producto'].capitalize() }} producidos</label>
-            <input type="number" step="0.01" name="producto" min="0" value="{{ producto_total }}" required>
-
-            <label>{{ labels[animal]['precio'] }}</label>
-            <input type="number" step="0.01" name="precio" min="0" value="{{ precio_unitario }}" required>
-
-            <button type="submit">Calcular</button>
-        </form>
-
-        {% if request.method == 'POST' %}
-        <div class="resultados">
-            <h2>Resultados</h2>
-            <p><strong>{{ labels[animal]['nombre'].capitalize() }}:</strong> {{ cantidad }}</p>
-            <p><strong>{{ labels[animal]['producto'].capitalize() }} producidos:</strong> {{ producto_total }} {{ labels[animal]['unidad'] }}</p>
-            <p><strong>Precio por {{ labels[animal]['unidad'] }}:</strong> ${{ "%.2f"|format(precio_unitario) }}</p>
-            <p><strong>Promedio por {{ labels[animal]['nombre'] }}:</strong> {{ "%.2f"|format(promedio) }} {{ labels[animal]['unidad'] }}</p>
-            <p><strong>Ingreso total:</strong> ${{ "%.2f"|format(ingreso_total) }}</p>
-        </div>
-        {% endif %}
+        <!-- Botón al glosario -->
+        <a href="{{ url_for('glosario') }}">
+            <button class="btn btn-glosario">
+                Ver Glosario
+            </button>
+        </a>
     </div>
+
 </body>
 </html>
